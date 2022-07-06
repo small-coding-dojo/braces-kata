@@ -36,7 +36,7 @@ test("should reject a single closing bracket", () => {
 test("two valid inputs return true", () => {
     expect(is_balanced("(this is good{!})", "(){}")).toBe(true);
 });
-
-test("this is bad", () => {
+describe("Should reject unopenend closing delimiter")
+test("should reject unopened closing (inner) delimiter", () => {
     expect(is_balanced("(this is bad })", "(){}")).toBe(false);
 });
