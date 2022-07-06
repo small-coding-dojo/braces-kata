@@ -1,14 +1,17 @@
 function is_balanced(inputString, delimiterPair) {
+    let stack = [];
+
     for(let i = 0 ; i < delimiterPair.length; i+=2) {
-        opening = delimiterPair[i]
-        closing = delimiterPair[i+1]
-        stack = [];
+        let opening = delimiterPair[i];
+        let closing = delimiterPair[i+1];
 
         for (characterOfInput of inputString) {
             if (characterOfInput == opening) {
                 stack.push(opening)
             } else if (characterOfInput == closing) {
-                if (typeof (stack.pop()) == "undefined") {
+                if(stack.length > 0){
+                    stack.pop();
+                } else {
                     return false;
                 }
             }
