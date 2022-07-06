@@ -28,16 +28,19 @@ describe( "Should accept balanced sets of delimiters", () => {
 
 });
 
+describe("Should reject unclosed delimiters.", () => {
+    test("Should reject single opening delimiter.", () => {
+        expect(is_balanced("(Sensei says no!", "()")).toBe(false);
+    });
 
-test("Should reject unclosed delimiters.", () => {
-    expect(is_balanced("(Sensei says no!", "()")).toBe(false);
+    test("Should reject missing nested closing delimiter.", () => {
+        expect(is_balanced("(Sensei (says) no!", "()")).toBe(false);
+    });
 });
-
-
 
 describe("Should reject unopened delimiter", () => {
 
-    test("should reject a single closing bracket", () => {
+    test("should reject a single closing delimiter.", () => {
         expect(is_balanced(")", "()")).toBe(false);
     });
 
