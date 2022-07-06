@@ -18,26 +18,24 @@ function is_balanced(inputString, delimiterPair) {
 }
 
 describe( "Should accept balanced sets of delimiters", () => {
-    test("input contains simple pair of matching opening and closing parentheses => true", () => {
+    test("Simple pair of matching delimiters.", () => {
         expect(is_balanced("(Sensei says yes!)", "()")).toBe(true);
     });
 
-    test("two valid inputs return true", () => {
+    test("Nested two pairs of matching delimiters.", () => {
         expect(is_balanced("(this is good{!})", "(){}")).toBe(true);
     });
 
 });
 
 
-test("input does not contain matching opening and closing parentheses => false", () => {
+test("Should reject unclosed delimiters.", () => {
     expect(is_balanced("(Sensei says no!", "()")).toBe(false);
 });
 
-test("input starts with closing and ends with opening parenthesis => false", () => {
-    expect(is_balanced(")Sensei says no!(", "()")).toBe(false);
-});
 
-describe("Should reject unopenend closing delimiter", () => {
+
+describe("Should reject unopened delimiter", () => {
 
     test("should reject a single closing bracket", () => {
         expect(is_balanced(")", "()")).toBe(false);
@@ -45,6 +43,10 @@ describe("Should reject unopenend closing delimiter", () => {
 
     test("should reject unopened closing (inner) delimiter", () => {
         expect(is_balanced("(this is bad })", "(){}")).toBe(false);
+    });
+
+    test("Should reject unopened closing delimiter.", () => {
+        expect(is_balanced(")Sensei says no!(", "()")).toBe(false);
     });
 
 });
