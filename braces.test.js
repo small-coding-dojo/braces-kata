@@ -18,7 +18,10 @@ function is_balanced(inputString, delimiterPair) {
 }
 
 describe( "Should accept balanced sets of delimiters", () => {
-    test("Simple pair of matching delimiters.", () => {
+    test("without delimiters", () => {
+        expect(is_balanced("Sensei says yes!", "()")).toBe(true);
+    });
+    test("Unnested pair of matching delimiters.", () => {
         expect(is_balanced("(Sensei says yes!)", "()")).toBe(true);
     });
 
@@ -26,6 +29,9 @@ describe( "Should accept balanced sets of delimiters", () => {
         expect(is_balanced("(this is good{!})", "(){}")).toBe(true);
     });
 
+    test("consecutive unnested pairs of matching delimiters.", () => {
+        expect(is_balanced("(this is good) (jhjhgj)", "()")).toBe(true);
+    });
 });
 
 describe("Should reject unclosed delimiters.", () => {
@@ -36,6 +42,11 @@ describe("Should reject unclosed delimiters.", () => {
     test("Should reject missing nested closing delimiter.", () => {
         expect(is_balanced("(Sensei (says) no!", "()")).toBe(false);
     });
+
+    test("unclosed consecutive unnested delimiters", () => {
+        expect(is_balanced("()(", "()")).toBe(false);
+    });
+
 });
 
 describe("Should reject unopened delimiter", () => {
