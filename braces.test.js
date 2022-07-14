@@ -1,3 +1,8 @@
+Object.prototype.containsKey = function (key) {
+    return typeof this[key] !== "undefined"
+} 
+
+
 function is_balanced(inputString, delimiterPair) {
     let stack = [];
 
@@ -11,6 +16,8 @@ function is_balanced(inputString, delimiterPair) {
         for (let i = 0; i < delimiterPair.length; i += 2) {
             let opening = delimiterPair[i];
             let closing = delimiterPair[i + 1];
+
+            let isClosingCharacter = mapOfClosingToOpening.containsKey(characterOfInput)
 
             //Object.prototype.keys(mapOfClosingToOpening).contains(characterOfInput)
             if (characterOfInput == opening) {
