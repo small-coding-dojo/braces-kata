@@ -67,3 +67,10 @@ describe("Should reject unopened delimiter", () => {
     });
 
 });
+
+
+describe("should fail of unmatching pairs", () => {
+    test("consecutive unnested pairs of matching delimiters.", () => {
+        expect(is_balanced("(this is good) (but this not}", "(){}")).toBe(false);
+    });
+});
