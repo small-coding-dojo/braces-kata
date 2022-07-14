@@ -1,18 +1,19 @@
 function is_balanced(inputString, delimiterPair) {
     let stack = [];
 
-    for(let i = 0 ; i < delimiterPair.length; i+=2) {
-        let opening = delimiterPair[i];
-        let closing = delimiterPair[i+1];
+    for (characterOfInput of inputString) {
+        for (let i = 0; i < delimiterPair.length; i += 2) {
+            let opening = delimiterPair[i];
+            let closing = delimiterPair[i + 1];
 
-        for (characterOfInput of inputString) {
+
             if (characterOfInput == opening) {
                 stack.push(opening)
             } else if (characterOfInput == closing) {
-                if (stack.length <= 0) {
-                    return false
-                } else if(stack[stack.length - 1] === opening) {
+                if (stack.length > 0 && stack[stack.length - 1] === opening) {
                     stack.pop()
+                } else {
+                    return false
                 }
             }
         }
@@ -20,7 +21,7 @@ function is_balanced(inputString, delimiterPair) {
     return stack.length == 0;
 }
 
-describe( "Should accept balanced sets of delimiters", () => {
+describe("Should accept balanced sets of delimiters", () => {
     test("without delimiters", () => {
         expect(is_balanced("Sensei says yes!", "()")).toBe(true);
     });
