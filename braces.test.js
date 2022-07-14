@@ -9,10 +9,10 @@ function is_balanced(inputString, delimiterPair) {
             if (characterOfInput == opening) {
                 stack.push(opening)
             } else if (characterOfInput == closing) {
-                if(stack.length > 0){
-                    stack.pop();
-                } else {
-                    return false;
+                if (stack.length <= 0) {
+                    return false
+                } else if(stack[stack.length - 1] === opening) {
+                    stack.pop()
                 }
             }
         }
@@ -72,5 +72,9 @@ describe("Should reject unopened delimiter", () => {
 describe("should fail of unmatching pairs", () => {
     test("consecutive unnested pairs of matching delimiters.", () => {
         expect(is_balanced("(this is good) (but this not}", "(){}")).toBe(false);
+    });
+
+    test("wrong order of closing delimiters.", () => {
+        expect(is_balanced("(this is good) {(but this not})", "(){}")).toBe(false);
     });
 });
