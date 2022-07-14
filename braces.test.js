@@ -1,10 +1,10 @@
 function is_balanced(inputString, delimiterPair) {
     let stack = [];
 
-    let delimiterPairs = {}
+    let mapOfClosingToOpening = {}
 
     for (let i = 0; i < delimiterPair.length; i += 2) {
-        delimiterPairs[delimiterPair[i]] = delimiterPair[i+1];
+        mapOfClosingToOpening[delimiterPair[i+1]] = delimiterPair[i];
     }
 
     for (characterOfInput of inputString) {
@@ -12,11 +12,11 @@ function is_balanced(inputString, delimiterPair) {
             let opening = delimiterPair[i];
             let closing = delimiterPair[i + 1];
 
-
+            //Object.prototype.keys(mapOfClosingToOpening).contains(characterOfInput)
             if (characterOfInput == opening) {
                 stack.push(opening)
             } else if (characterOfInput == closing) {
-                if (stack.length > 0 && stack[stack.length - 1] === opening) {
+                if (stack.length > 0 && stack[stack.length - 1] === mapOfClosingToOpening[characterOfInput]) {
                     stack.pop()
                 } else {
                     return false
