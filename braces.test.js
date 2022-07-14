@@ -1,6 +1,12 @@
 function is_balanced(inputString, delimiterPair) {
     let stack = [];
 
+    let delimiterPairs = {}
+
+    for (let i = 0; i < delimiterPair.length; i += 2) {
+        delimiterPairs[delimiterPair[i]] = delimiterPair[i+1];
+    }
+
     for (characterOfInput of inputString) {
         for (let i = 0; i < delimiterPair.length; i += 2) {
             let opening = delimiterPair[i];
