@@ -27,16 +27,16 @@ function is_balanced(inputString, delimiterPair) {
     for (characterOfInput of inputString) {
         if (isOpeningDelimiter(characterOfInput)) {
             stack.push(characterOfInput);
-        } else if (isClosingDelimiter(characterOfInput) && stack[stack.length - 1] != mapOfClosingToOpening[characterOfInput]) {
-            return false;
-        } else if (stack.length > 0 && isClosingDelimiter(characterOfInput) && stack[stack.length - 1] === mapOfClosingToOpening[characterOfInput]) {
-            let peek = stack.pop()
-            if( typeof peek === 'undefined' || peek !== mapOfClosingToOpening[characterOfInput]) {
+        } else if (isClosingDelimiter(characterOfInput)) {
+            let mostRecentOpeningDelimiter = stack.pop();
+
+            let isUnexpectedClosingDelimiter = mostRecentOpeningDelimiter !== mapOfClosingToOpening[characterOfInput];
+            if (isUnexpectedClosingDelimiter) {
                 return false;
             }
         }
     }
-    return stack.length == 0;
+    return stack.length === 0;
 }
 
 describe("Should find values in hashmaps", () => {
