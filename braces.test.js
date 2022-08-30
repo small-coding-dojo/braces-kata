@@ -1,62 +1,47 @@
-Object.prototype.containsKey = function (key) {
-    return typeof this[key] !== "undefined"
-}
-
-Object.prototype.containsValue = function (value) {
-    return Object.values(this).includes(value)
+function is_balanced ( input, delimiterPairs ) {
+    return is_balanced_recursive ( delimiterPairs, input, "");
 }
 
 
-function is_balanced(inputString, delimiterPairs) {
-    let stack = [];
-    let mapOfClosingToOpening = buildDelimiterMap(delimiterPairs)
-
-    for (characterOfInput of inputString) {
-        if (currentCharacterDoesCloseIdenticalDelimiter()) {
-            stack.pop()
-        } else if (isOpeningDelimiter(characterOfInput)) {
-            stack.push(characterOfInput);
-        } else if (isClosingDelimiter(characterOfInput)) {
-            let mostRecentOpeningDelimiter = stack.pop();
-
-            let isUnexpectedClosingDelimiter = mostRecentOpeningDelimiter !== mapOfClosingToOpening[characterOfInput];
-            if (isUnexpectedClosingDelimiter) {
-                return false;
-            }
-        } 
-    }
-    return stack.length === 0;
-
-    function buildDelimiterMap (delimiterPairs) {
-        map = {}
-        for (let i = 0; i < delimiterPairs.length; i += 2) {
-            map[delimiterPairs[i + 1]] = delimiterPairs[i]
-        }
-        return map
-    }
-
-    function isOpeningDelimiter(characterToCheck) {
-        return mapOfClosingToOpening.containsValue(characterToCheck)
-    }
-
-    function isClosingDelimiter(characterToCheck) {
-        return mapOfClosingToOpening.containsKey(characterToCheck)
-    }
-
-    function currentCharacterDoesCloseIdenticalDelimiter() {
-        return isClosingDelimiter(characterOfInput) && stack[stack.length - 1] === characterOfInput;
-    }
-
+function isDelimiter ( char, delimiterPairs ) {
+    return delimiterPairs.indexOf(char) >= 0
 }
 
-describe("Should find values in hashmaps", () => {
-    let mapOfClosingToOpening = {')': '('};
+function isMatchedClosingDelimiter ( char, stack, pairs ) {
+    return stack !== "" 
+        && (( pairs.indexOf(char) == pairs.indexOf(stack[0])+1 && (pairs.indexOf(char) % 2 == 1) ) || char === stack[0])
+}
 
-    test("value is present", () => {
-        expect(mapOfClosingToOpening.containsValue('(')).toBe(true);
-    })
-    test("value is not present", () => {
-        expect(mapOfClosingToOpening.containsValue(')')).toBe(false);
+function isOpeningDelimiter ( char, pairs ) {
+    return pairs.indexOf(char) % 2 == 0
+}
+
+
+function is_balanced_recursive ( delimiterPairs, toBeProcessed, stack ) {
+    if ( toBeProcessed === "") {
+        return stack === ""
+    }
+    
+    if ( ! isDelimiter ( toBeProcessed[0], delimiterPairs )) {
+        return is_balanced_recursive ( delimiterPairs, toBeProcessed.substring(1), stack )
+    }
+
+    if ( isMatchedClosingDelimiter ( toBeProcessed[0], stack, delimiterPairs )) {
+        return is_balanced_recursive ( delimiterPairs, toBeProcessed.substring(1), stack.substring(1))
+    }
+    
+    if ( isOpeningDelimiter ( toBeProcessed[0], delimiterPairs )) {
+        return is_balanced_recursive ( delimiterPairs, toBeProcessed.substring(1), toBeProcessed[0] + stack)
+    }
+
+    return false;
+}
+
+
+
+describe("Should accept empty string", () => {
+    test("Should accept empty string", () => {
+        expect(is_balanced("", "()")).toBe(true);
     })
 })
 
