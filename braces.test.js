@@ -119,4 +119,8 @@ describe("should accept bernhards interesting ideas", () => {
     test("one delimiter char closes several opening ones", () => {
         expect(is_balanced("Sensei says (yes- ... [{but...- oh dear-!", "(-[-{-")).toBe(true);
     });
+
+    test("one delimiter char opens several closing ones", () => {
+            expect(is_balanced("Sensei says -yes) ... --but...} oh dear]!", "-)-]-}")).toBe(true);
+    });
 });
