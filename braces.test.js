@@ -7,11 +7,12 @@ function isDelimiter ( char, delimiterPairs ) {
     return delimiterPairs.indexOf(char) >= 0
 }
 
+
 function isMatchedClosingDelimiter ( possibleClosing, possibleOpening, pairs ) {
     if ( possibleOpening === "" ) 
         return false
 
-    if (possibleClosing === possibleOpening )
+    if (isClosingDelimiter(possibleClosing, pairs) && possibleClosing === possibleOpening )
         return true
 
     return pairs.indexOf(possibleOpening+possibleClosing)%2 == 0
@@ -19,6 +20,10 @@ function isMatchedClosingDelimiter ( possibleClosing, possibleOpening, pairs ) {
 
 function isOpeningDelimiter ( char, pairs ) {
     return pairs.indexOf(char) % 2 == 0
+}
+
+function isClosingDelimiter ( char, pairs ) {
+    return pairs.indexOf(char) % 2 == 1
 }
 
 
