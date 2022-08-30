@@ -114,3 +114,9 @@ describe("should accept identical deimiters", () => {
         expect(is_balanced("Sensei says -yes-!", "--")).toBe(true);
     });
 });
+
+describe("should accept bernhards interesting ideas", () => {
+    test("one delimiter char closes several opening ones", () => {
+        expect(is_balanced("Sensei says (yes- ... [{but...- oh dear-!", "(-[-{-")).toBe(true);
+    });
+});
