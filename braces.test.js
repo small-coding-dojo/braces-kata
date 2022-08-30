@@ -7,9 +7,14 @@ function isDelimiter ( char, delimiterPairs ) {
     return delimiterPairs.indexOf(char) >= 0
 }
 
-function isMatchedClosingDelimiter ( char, stack, pairs ) {
-    return stack !== "" 
-        && (( pairs.indexOf(char) == pairs.indexOf(stack[0])+1 && (pairs.indexOf(char) % 2 == 1) ) || char === stack[0])
+function isMatchedClosingDelimiter ( possibleClosing, possibleOpening, pairs ) {
+    if ( possibleOpening === "" ) 
+        return false
+
+    if (possibleClosing === possibleOpening )
+        return true
+
+    return pairs.indexOf(possibleClosing) == pairs.indexOf(possibleOpening)+1 && (pairs.indexOf(possibleClosing) % 2 == 1)  
 }
 
 function isOpeningDelimiter ( char, pairs ) {
@@ -26,7 +31,7 @@ function is_balanced_recursive ( delimiterPairs, toBeProcessed, stack ) {
         return is_balanced_recursive ( delimiterPairs, toBeProcessed.substring(1), stack )
     }
 
-    if ( isMatchedClosingDelimiter ( toBeProcessed[0], stack, delimiterPairs )) {
+    if ( isMatchedClosingDelimiter ( toBeProcessed[0], stack.substring(0,1), delimiterPairs )) {
         return is_balanced_recursive ( delimiterPairs, toBeProcessed.substring(1), stack.substring(1))
     }
     
