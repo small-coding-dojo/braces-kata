@@ -14,7 +14,7 @@ function isMatchedClosingDelimiter ( possibleClosing, possibleOpening, pairs ) {
     if (possibleClosing === possibleOpening )
         return true
 
-    return pairs.indexOf(possibleClosing) == pairs.indexOf(possibleOpening)+1 && (pairs.indexOf(possibleClosing) % 2 == 1)  
+    return pairs[ pairs.indexOf(possibleOpening)+1 ] === possibleClosing
 }
 
 function isOpeningDelimiter ( char, pairs ) {
