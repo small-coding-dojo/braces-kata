@@ -4,6 +4,6 @@
 
 tasks:
   - init: curl -sL install.mob.sh | sudo sh
-image: clojure
+image: clojure:alpine
 
 
