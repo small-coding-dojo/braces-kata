@@ -1,5 +1,3 @@
-FROM gitpod/workspace-full
+FROM gitpod/workspace-clojure
 
-RUN brew install clojure/tools/clojure
-RUN brew install leiningen
 RUN brew install remotemobprogramming/brew/mob
