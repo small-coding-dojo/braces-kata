@@ -1,3 +1,5 @@
+is_balanced = require( './is_balanced');
+
 Object.prototype.containsKey = function (key) {
     return typeof this[key] !== "undefined"
 }
@@ -6,48 +8,6 @@ Object.prototype.containsValue = function (value) {
     return Object.values(this).includes(value)
 }
 
-
-function is_balanced(inputString, delimiterPairs) {
-    let stack = [];
-    let mapOfClosingToOpening = buildDelimiterMap(delimiterPairs)
-
-    for (characterOfInput of inputString) {
-        if (currentCharacterDoesCloseIdenticalDelimiter()) {
-            stack.pop()
-        } else if (isOpeningDelimiter(characterOfInput)) {
-            stack.push(characterOfInput);
-        } else if (isClosingDelimiter(characterOfInput)) {
-            let mostRecentOpeningDelimiter = stack.pop();
-
-            let isUnexpectedClosingDelimiter = mostRecentOpeningDelimiter !== mapOfClosingToOpening[characterOfInput];
-            if (isUnexpectedClosingDelimiter) {
-                return false;
-            }
-        } 
-    }
-    return stack.length === 0;
-
-    function buildDelimiterMap (delimiterPairs) {
-        map = {}
-        for (let i = 0; i < delimiterPairs.length; i += 2) {
-            map[delimiterPairs[i + 1]] = delimiterPairs[i]
-        }
-        return map
-    }
-
-    function isOpeningDelimiter(characterToCheck) {
-        return mapOfClosingToOpening.containsValue(characterToCheck)
-    }
-
-    function isClosingDelimiter(characterToCheck) {
-        return mapOfClosingToOpening.containsKey(characterToCheck)
-    }
-
-    function currentCharacterDoesCloseIdenticalDelimiter() {
-        return isClosingDelimiter(characterOfInput) && stack[stack.length - 1] === characterOfInput;
-    }
-
-}
 
 describe("Should find values in hashmaps", () => {
     let mapOfClosingToOpening = {')': '('};
@@ -111,7 +71,7 @@ describe("Should reject unopened delimiter", () => {
 
 describe("should fail of unmatching pairs", () => {
     test("consecutive unnested pairs of matching delimiters.", () => {
-        expect(is_balanced("(this is good) (but this not}", "(){}")).toBe(false);
+        expect(is_balanced("(this 7 is good) (but this not}", "(){}")).toBe(false);
     });
 
     test("wrong order of closing delimiters.", () => {

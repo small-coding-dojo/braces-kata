@@ -288,3 +288,9 @@ fabric.properties
 .idea/**/azureSettings.xml
 
 # End of https://www.toptal.com/developers/gitignore/api/node,macos,webstorm
+
+# stryker temp files
+.stryker-tmp
+
+# stryker analysis result file
+reports/mutation/mutation.html
